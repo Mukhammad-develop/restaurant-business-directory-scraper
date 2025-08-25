@@ -190,8 +190,19 @@ def main():
             logger.info("Search would be performed with the above parameters")
             return
         
-        # TODO: Initialize and run scrapers (Step 2)
-        logger.warning("⚠️  Scraper implementation coming in Step 2!")
+        # Initialize scraper manager and run scrapers
+        from src.scraper_manager import ScraperManager
+        
+        scraper_manager = ScraperManager()
+        
+        logger.info("🔍 Starting scraping process...")
+        businesses = scraper_manager.search_all_platforms(search_filter, platforms)
+        
+        if not businesses:
+            logger.warning("No businesses found matching the search criteria")
+            return
+        
+        logger.info(f"✅ Found {len(businesses)} businesses total")
         
         # TODO: Process and validate data (Step 3)
         logger.warning("⚠️  Data processing implementation coming in Step 3!")
