@@ -235,12 +235,28 @@ def main():
             if reviews_file:
                 logger.info(f"✅ Reviews exported: {reviews_file}")
         
-        # TODO: Generate visualizations (Step 4)
+        # Generate visualizations and analytics
         if args.generate_map:
-            logger.warning("⚠️  Map generation implementation coming in Step 4!")
+            from src.visualizers.map_generator import MapGenerator
+            
+            logger.info("🗺️  Generating interactive map...")
+            map_generator = MapGenerator()
+            try:
+                map_file = map_generator.generate_business_map(processed_businesses)
+                logger.info(f"✅ Interactive map generated: {map_file}")
+            except Exception as e:
+                logger.warning(f"Map generation failed: {str(e)}")
             
         if args.generate_analytics:
-            logger.warning("⚠️  Analytics generation implementation coming in Step 4!")
+            from src.visualizers.analytics_dashboard import AnalyticsDashboard
+            
+            logger.info("📊 Generating analytics dashboard...")
+            analytics = AnalyticsDashboard()
+            try:
+                analytics_file = analytics.generate_analytics_report(processed_businesses)
+                logger.info(f"✅ Analytics dashboard generated: {analytics_file}")
+            except Exception as e:
+                logger.warning(f"Analytics generation failed: {str(e)}")
         
         logger.info("✅ Application completed successfully")
         
