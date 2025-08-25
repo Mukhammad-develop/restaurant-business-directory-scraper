@@ -1,0 +1,104 @@
+# Restaurant Business Directory Scraper Configuration
+
+# Scraping Settings
+scraping:
+  delay_between_requests: 2  # seconds
+  timeout: 30  # seconds
+  max_retries: 3
+  concurrent_requests: 5
+  
+# Search Parameters
+search:
+  default_radius: 10  # miles
+  max_results_per_search: 100
+  default_city: "New York, NY"
+  
+# Platforms
+platforms:
+  yelp:
+    enabled: true
+    base_url: "https://www.yelp.com"
+    api_key: ""  # Optional: Add your Yelp API key
+  google_maps:
+    enabled: true
+    base_url: "https://maps.google.com"
+    api_key: ""  # Add your Google Maps API key
+    
+# Filters
+filters:
+  min_rating: 1.0
+  max_rating: 5.0
+  min_reviews: 0
+  cuisine_types:
+    - "American"
+    - "Italian"
+    - "Chinese"
+    - "Mexican"
+    - "Indian"
+    - "Japanese"
+    - "Thai"
+    - "French"
+    - "Mediterranean"
+    - "Fast Food"
+    - "Pizza"
+    - "Seafood"
+    - "Steakhouse"
+    - "Vegetarian"
+    - "Vegan"
+    
+# Data Export
+export:
+  formats:
+    - "csv"
+    - "excel"
+    - "google_sheets"
+  output_directory: "data/exports"
+  filename_prefix: "restaurant_directory"
+  
+# Google Sheets Integration
+google_sheets:
+  credentials_file: "credentials/google_credentials.json"
+  spreadsheet_name: "Restaurant Directory"
+  
+# Email Validation
+email_validation:
+  enabled: true
+  check_deliverability: false  # Set to true for deep validation (slower)
+  
+# Anti-Bot Protection
+anti_bot:
+  use_proxies: false
+  proxy_list: "proxies/proxy_list.txt"
+  rotate_user_agents: true
+  headless_browser: true
+  
+# Scheduling
+scheduler:
+  enabled: false
+  frequency: "weekly"  # daily, weekly, monthly
+  time: "02:00"  # 24-hour format
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "logs/scraper.log"
+  max_log_size: "10MB"
+  backup_count: 5
+  
+# Database
+database:
+  type: "sqlite"  # sqlite, postgresql, mysql
+  path: "data/restaurants.db"
+  
+# Visualization
+visualization:
+  map_center_lat: 40.7128
+  map_center_lng: -74.0060
+  map_zoom: 10
+  enable_clustering: true
+  
+# Analytics
+analytics:
+  sentiment_analysis: true
+  generate_reports: true
+  top_businesses_count: 20 
