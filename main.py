@@ -204,8 +204,36 @@ def main():
         
         logger.info(f"✅ Found {len(businesses)} businesses total")
         
-        # TODO: Process and validate data (Step 3)
-        logger.warning("⚠️  Data processing implementation coming in Step 3!")
+        # Process and validate data
+        from src.processors.data_processor import DataProcessor
+        from src.exporters.data_exporter import DataExporter
+        
+        processor = DataProcessor()
+        exporter = DataExporter()
+        
+        logger.info("🔧 Processing and validating data...")
+        processed_businesses = processor.process_businesses(businesses, search_filter)
+        
+        if not processed_businesses:
+            logger.warning("No valid businesses after processing")
+            return
+        
+        logger.info(f"📊 Data processing completed: {len(processed_businesses)} valid businesses")
+        
+        # Export data
+        logger.info("💾 Exporting data...")
+        export_results = exporter.export_businesses(processed_businesses, export_formats, args.output)
+        
+        # Display export results
+        for format_type, result in export_results.items():
+            logger.info(f"✅ {format_type.upper()} export: {result}")
+        
+        # Export reviews if requested
+        if args.with_reviews:
+            logger.info("📝 Exporting reviews...")
+            reviews_file = exporter.export_reviews(processed_businesses)
+            if reviews_file:
+                logger.info(f"✅ Reviews exported: {reviews_file}")
         
         # TODO: Generate visualizations (Step 4)
         if args.generate_map:
